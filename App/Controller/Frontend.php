@@ -2,6 +2,9 @@
 
 namespace citymobile;
 
+use Exception;
+use Photo;
+
 /**
  * Class ControllerFrontend
  * All front-end functions are here
@@ -15,18 +18,19 @@ class ControllerFrontend {
      * Require Home Page.
      */
     public function home() {
-        $article = new Article([
-            'type' => 'Telphone',
-            'mark' => 'Apple',
-            'name' => 'Iphone7',
-            'price' => '700',
-            'photo' => 'photo',
-            'description' => 'description'
-        ]);
+        require '../views/Frontend/home.php';
+    }
 
-        $manager = new ArticleManager();
-        $manager->add($article);
-        //require '../views/Frontend/home.php';
+    public function addArticle() {
+
+        $photo = new Photo($_FILES);
+        $article = new Article($_POST);
+        $articleManager = new ArticleManager();
+        $article->setPhoto($photo->getName());
+        $articleManager->add($article);
+
+        // views.
+
     }
 
 

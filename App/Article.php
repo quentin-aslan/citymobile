@@ -29,12 +29,8 @@ class Article
     public function hydrate($datas)
     {
         foreach ($datas as $key => $value) {
-            if($key== 'photo' && $this->isNew()) {
-                $this->addPhoto($value);
-                $method = 'set' . ucfirst($key);
-            } else {
-                $this->$method($value);
-            }
+            $method = 'set' . ucfirst($key);
+            $this->$method($value);
         }
     }
 
@@ -178,21 +174,6 @@ class Article
     public function setDateCreate($date_create)
     {
         $this->date_create = $date_create;
-    }
-
-    private function addPhoto($photo)
-    {
-        // Traitement de l'image
-        $dossier = '/public/img/';
-        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-        $extension = strrchr($photo['photo']['name'], '.');
-        // if(!in_array($extension, $extensions)) {
-        //     //Si l'extension n'est pas dans le tableau
-        //     header('location: ../index.php?p=ajouter_article&erreur=erreur_photo');
-        // }
-        $nom_photo = uniqid().$extension;
-        $chemin_img =$dossier . $nom_photo;
-        move_uploaded_file($_FILES['photo']['tmp_name'], $chemin_img);
     }
 
 
