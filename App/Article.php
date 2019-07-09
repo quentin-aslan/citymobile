@@ -1,5 +1,7 @@
 <?php
 
+namespace citymobile;
+
 class Article
 {
     public $errors = [];
@@ -27,10 +29,16 @@ class Article
     public function hydrate($datas)
     {
         foreach ($datas as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            $this->$method($value);
+            if($key== 'photo' && $this->isNew()) {
+                $this->addPhoto($value);
+                $method = 'set' . ucfirst($key);
+            } else {
+                $this->$method($value);
+            }
         }
     }
+
+    public function isNew() { return empty($this->id); }
 
     // Getter & Setter
 
@@ -65,8 +73,7 @@ class Article
     {
         if(!is_string($type) && empty($type))
             $this->errors = self::ERROR_TYPE;
-        else
-            $this->type = $type;
+        $this->type = $type;
     }
 
     /**
@@ -84,8 +91,7 @@ class Article
     {
         if(!is_string($mark) && empty($mark))
             $this->errors = self::ERROR_MARK;
-        else
-            $this->mark = $mark;
+        $this->mark = $mark;
     }
 
     /**
@@ -103,8 +109,7 @@ class Article
     {
         if(!is_string($name) && empty($name))
             $this->errors = self::ERROR_NAME;
-        else
-            $this->mark = $name;
+        $this->name = $name;
     }
 
     /**
@@ -138,8 +143,7 @@ class Article
     {
         if(!is_string($photo) && empty($photo))
             $this->errors = self::ERROR_PHOTO;
-        else
-            $this->photo = $photo;
+        $this->photo = $photo;
     }
 
     /**
@@ -157,8 +161,7 @@ class Article
     {
         if (!is_string($description) && empty($description))
             $this->errors = self::ERROR_DESCRIPTION;
-        else
-            $this->description = $description;
+        $this->description = $description;
     }
 
     /**
@@ -175,6 +178,21 @@ class Article
     public function setDateCreate($date_create)
     {
         $this->date_create = $date_create;
+    }
+
+    private function addPhoto($photo)
+    {
+        // Traitement de l'image
+        $dossier = '/public/img/';
+        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+        $extension = strrchr($photo['photo']['name'], '.');
+        // if(!in_array($extension, $extensions)) {
+        //     //Si l'extension n'est pas dans le tableau
+        //     header('location: ../index.php?p=ajouter_article&erreur=erreur_photo');
+        // }
+        $nom_photo = uniqid().$extension;
+        $chemin_img =$dossier . $nom_photo;
+        move_uploaded_file($_FILES['photo']['tmp_name'], $chemin_img);
     }
 
 
