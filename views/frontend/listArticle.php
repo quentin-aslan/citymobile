@@ -8,13 +8,14 @@
 
         <?php
         /** @var ArrayObject $articles */
+        $i = 0;
         foreach ($articles as $article) {
+            $i++;
             /** @var \citymobile\Article $article */
-            ?>
+        if($i==4){?>
 
-        <div class="mb-9"></div>
-        <div class="card col-3 mb-3 shadow-sm">
-            <img class="card-img-top" width="286" height="180" src="img/<?= $article->getPhoto(); ?>" alt="Card image cap">
+        <div class="card col-lg-3 mb-3 shadow-sm">
+            <img class="card-img-top" width="286" height="180" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
             <div class="card-body">
                 <h5 class="card-title"><?= $article->getName(); ?></h5>
                 <ul class="list-unstyled mt-3 mb-4">
@@ -23,7 +24,25 @@
                 <button type="button" class="btn btn-lg btn-block btn-primary">Voir plus</button>
             </div>
         </div>
-        <?php } ?>
+    </div>
+    <div class="card-deck text-center">
+        <?php
+        $i=0;
+        }else{
+            ?>
+            <div class="card col-lg-3 mb-3 shadow-sm">
+                <img class="card-img-top" width="286" height="180" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $article->getName(); ?></h5>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <h3 class="card-title pricing-card-title"><?= $article->getPrice(); ?>€ <small class="text-muted"></small></h3>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-primary">Voir plus</button>
+                </div>
+            </div>
+
+
+        <?php }} ?>
 
 
     </div>
