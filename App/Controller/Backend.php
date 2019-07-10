@@ -21,6 +21,20 @@ class ControllerBackend {
         //require '../views/Backend/home.php';
     }
 
+    /**
+     * form administrator login
+     */
+    public function login() {
+
+        if(!empty($_POST)) {
+            // ...
+            var_dump($_POST);
+        } else {
+            require '../views/backend/login.php';
+        }
+
+    }
+
     public function addArticle() {
         $photo = new Photo($_FILES);
         $article = new Article($_POST);

@@ -27,6 +27,9 @@ try {
             break;
 
 // ------------ BACK-END ------------
+        case 'login':
+            $controllerBackend->login();
+            break;
 
         case 'add_article':
             $controllerBackend->addArticle();
