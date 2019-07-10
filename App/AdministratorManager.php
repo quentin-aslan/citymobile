@@ -1,7 +1,6 @@
 <?php
 
 namespace citymobile;
-session_start();
 
 use Administrator;
 use PDO;
@@ -9,6 +8,10 @@ use PDO;
 class AdministratorManager extends Manager {
     private $errors = [];
     const ERROR_CONNECT = 'bad_id';
+
+    public static function isConnected() {
+        return isset($_SESSION['admin_id']);
+    }
 
     /**
      * Get administrator from DB.

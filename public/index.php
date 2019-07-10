@@ -3,7 +3,7 @@
 use citymobile\Autoloader;
 use citymobile\ControllerBackend;
 use citymobile\ControllerFrontend;
-
+session_start();
 require '../App/Autoloader.php';
 Autoloader::register();
 
@@ -30,6 +30,10 @@ try {
             $controllerBackend->login();
             break;
 
+        case 'admin_home':
+            $controllerBackend->home();
+            break;
+
         case 'admin_add_article':
             $controllerBackend->addArticle();
             break;
@@ -42,6 +46,8 @@ try {
             require '../views/frontend/home.php';
             break;
     }
+
+
 
     $content = ob_get_clean();
     require '../views/template/layout.php';

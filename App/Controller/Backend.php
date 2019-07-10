@@ -1,7 +1,6 @@
 <?php
 
 namespace citymobile;
-session_start();
 use Administrator;
 use Exception;
 use Photo;
@@ -15,15 +14,14 @@ use Photo;
 class ControllerBackend
 {
 
-    private function isConnected() {
-        return isset($_SESSION['admin_id']);
-    }
 
     /**
      * Require Home Page.
      */
     public function home()
     {
+        if(!AdministratorManager::isConnected())
+            header('location: index.php?p=admin_login');
         require '../views/Backend/home.php';
     }
 
@@ -32,7 +30,7 @@ class ControllerBackend
      */
     public function login()
     {
-        if($this->isConnected())
+        if(AdministratorManager::isConnected())
             header('location: index.php?p=admin_home');
 
         if (!empty($_POST)) {
@@ -58,6 +56,8 @@ class ControllerBackend
 
     public function addArticle()
     {
+        if(!AdministratorManager::isConnected())
+            header('location: index.php?p=admin_login');
         $photo = new Photo($_FILES);
         $article = new Article($_POST);
         $articleManager = new ArticleManager();
@@ -69,6 +69,8 @@ class ControllerBackend
 
     public function editArticle()
     {
+        if(!AdministratorManager::isConnected())
+            header('location: index.php?p=admin_login');
         $photo = new Photo($_FILES);
         $article = new Article($_POST);
         if ($article->isNew())
