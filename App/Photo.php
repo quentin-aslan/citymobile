@@ -26,15 +26,13 @@ Class Photo {
         $this->extension = strtolower(strrchr($_FILES['photo']['name'], '.'));
         $this->name = uniqid().$this->extension;
         $this->path =$this->folder . $this->name;
-
-        $this->add();
     }
 
     private function checkExtension($extension) {
         return in_array($extension, $this->extensions);
     }
 
-    private function add() {
+    public function add() {
         if(!$this->checkExtension($this->extension))
             throw new Exception(self::ERROR_EXTENSION);
 

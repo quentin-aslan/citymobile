@@ -13,6 +13,12 @@ use Photo;
  */
 class ControllerBackend
 {
+    private $articleManager;
+
+    public function __construct()
+    {
+        $this->articleManager = new ArticleManager();
+    }
 
 
     /**
@@ -36,9 +42,9 @@ class ControllerBackend
         if (!empty($_POST)) {
             $administrator = new Administrator($_POST);
             $errors = $administrator->errors;
-            if (!empty($errors)) {
+            if (!empty($errors))
                 require '../views/backend/login.php';
-            } else {
+            else {
                 $administratorManager = new AdministratorManager();
                 $errors = $administratorManager->connect($administrator);
                 if(!empty($errors))
@@ -58,13 +64,22 @@ class ControllerBackend
     {
         if(!AdministratorManager::isConnected())
             header('location: index.php?p=admin_login');
-        $photo = new Photo($_FILES);
-        $article = new Article($_POST);
-        $articleManager = new ArticleManager();
-        $article->setPhoto($photo->getName());
-        $articleManager->save($article);
+        if(!empty($_POST)) {
+            $photo = new Photo($_FILES);
+            $article = new Article($_POST);
+            $article->setPhoto($photo->getName());
+            $errors = $article->errors;
+            if(!empty($errors))
+                require '../views/backend/addArticle.php';
+            else {
+                $photo->add(); // Add photo on the server.
+                $this->articleManager->save($article);
+                echo '<div class="container"><div class="alert alert-success">Votre article à bien été ajouté <br />> <a href="index.php?p=admin_list_articles">Afficher la liste des articles.</a></div></div>';
+            }
 
-        echo '<div class="alert alert-success">L\'article à bien été ajouté</div>';
+        } else {
+            require '../views/backend/addArticle.php';
+        }
     }
 
     public function editArticle()
@@ -75,11 +90,23 @@ class ControllerBackend
         $article = new Article($_POST);
         if ($article->isNew())
             throw new Exception("L'article que vous essayer de modifier n'existe pas, veuillez le créé.");
-        $articleManager = new ArticleManager();
         $article->setPhoto($photo->getName());
-        $articleManager->save($article);
+        $this->articleManager->save($article);
 
         // View
+    }
+
+    public function listArticles()
+    {
+        $articles = $this->articleManager->getList();
+        require '../views/backend/listArticles.php';
+    }
+
+    public function deleteArticle($token)
+    {
+        if(isset($token) && !empty($token)) {
+            $this->articleManager->delete($token);
+        }
     }
 
 

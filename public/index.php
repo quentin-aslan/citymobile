@@ -30,6 +30,10 @@ try {
             $controllerBackend->login();
             break;
 
+        case 'admin_list_articles':
+            $controllerBackend->listArticles();
+            break;
+
         case 'admin_home':
             $controllerBackend->home();
             break;
@@ -42,6 +46,10 @@ try {
             $controllerBackend->editArticle();
             break;
 
+        case 'admin_delete_article':
+            $controllerBackend->deleteArticle($_GET['token']);
+            break;
+
         default:
             require '../views/frontend/home.php';
             break;
@@ -50,7 +58,10 @@ try {
 
 
     $content = ob_get_clean();
-    require '../views/template/layout.php';
+    if(\citymobile\AdministratorManager::isConnected())
+        require '../views/template/layoutBack.php';
+    else
+        require '../views/template/layout.php';
 }catch (Exception $e) {
     $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();

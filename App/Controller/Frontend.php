@@ -24,7 +24,7 @@ class ControllerFrontend {
         $articleManager = new ArticleManager();
         $articles = $articleManager->getList();
 
-        require '../views/Frontend/listArticle.php';
+        require '../views/Frontend/listArticles.php';
 
     }
 

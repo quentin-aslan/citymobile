@@ -30,6 +30,8 @@ class Article
     {
         foreach ($datas as $key => $value) {
             $method = 'set' . ucfirst($key);
+            if($method == 'setDate_create')
+                $method = 'setDateCreate';
             if(method_exists($this, $method))
                 $this->$method($value);
         }
@@ -77,7 +79,7 @@ class Article
      */
     public function setType($type)
     {
-        if(!is_string($type) && empty($type))
+        if(!is_string($type) || empty($type))
             $this->errors = self::ERROR_TYPE;
         $this->type = $this->checkSetter($type);
     }
@@ -95,7 +97,7 @@ class Article
      */
     public function setMark($mark)
     {
-        if(!is_string($mark) && empty($mark))
+        if(!is_string($mark) || empty($mark))
             $this->errors = self::ERROR_MARK;
         $this->mark = $this->checkSetter($mark);
     }
@@ -113,7 +115,7 @@ class Article
      */
     public function setName($name)
     {
-        if(!is_string($name) && empty($name))
+        if(!is_string($name) || empty($name))
             $this->errors = self::ERROR_NAME;
         $this->name = $this->checkSetter($name);
     }
@@ -147,7 +149,7 @@ class Article
      */
     public function setPhoto($photo)
     {
-        if(!is_string($photo) && empty($photo))
+        if(!is_string($photo) || empty($photo))
             $this->errors = self::ERROR_PHOTO;
         $this->photo = $this->checkSetter($photo);
     }
@@ -165,7 +167,7 @@ class Article
      */
     public function setDescription($description)
     {
-        if (!is_string($description) && empty($description))
+        if (!is_string($description) || empty($description))
             $this->errors = self::ERROR_DESCRIPTION;
         $this->description = $this->checkSetter($description);
     }
