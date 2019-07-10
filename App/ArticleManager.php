@@ -12,6 +12,7 @@ class ArticleManager extends Manager
      */
     public function add(Article $article)
     {
+
         $q = $this->db->prepare('INSERT INTO article (type, mark, name, price, photo, description, date_create) VALUES (:type, :mark, :name, :price, :photo, :description, NOW())');
         $q->bindValue('type', $article->getType());
         $q->bindValue('mark', $article->getMark());
@@ -67,12 +68,6 @@ class ArticleManager extends Manager
         $q = $this->db->query($sql);
         $q->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Article');
         $list = $q->fetchAll();
-
-        // On parcourt notre liste d'article pour pouvoir placer des instances de DateTime en guise de dates d'ajout
-        foreach ($list as $article) {
-            $article->setDateCreate($article->getDateCreate());
-        }
-
         return $list;
     }
 

@@ -30,7 +30,9 @@
 <!-- Fin Menu -->
 
 <!-- Corp de la page -->
-<?= $content; ?>
+<div class="container">
+    <?= $content; ?>
+</div>
 <!-- Fin Corp de la page -->
 
 <!-- Footer -->

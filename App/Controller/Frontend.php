@@ -3,7 +3,6 @@
 namespace citymobile;
 
 use Exception;
-use Photo;
 
 /**
  * Class ControllerFrontend
@@ -21,17 +20,12 @@ class ControllerFrontend {
         require '../views/Frontend/home.php';
     }
 
-    public function addArticle() {
-
-        $photo = new Photo($_FILES);
-        $article = new Article($_POST);
+    public function listArticles() {
         $articleManager = new ArticleManager();
-        $article->setPhoto($photo->getName());
-        $articleManager->add($article);
+        $list = $articleManager->getList();
 
-        // views.
+        require '../views/Frontend/listArticle.php';
 
     }
-
 
 }
