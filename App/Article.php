@@ -36,6 +36,12 @@ class Article
     }
 
     public function isNew() { return empty($this->id); }
+
+    /**
+     * Secure the value
+     * @param $value
+     * @return string
+     */
     private function checkSetter($value) {
         return htmlspecialchars($value);
     }

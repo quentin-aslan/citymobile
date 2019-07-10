@@ -2,15 +2,15 @@
 
 class Administrator {
 
-    private $errors = [];
+    public $errors = [];
     private $id;
     private $username;
     private $password;
     private $mail;
 
-    const ERROR_USERNAME = 1;
-    const ERROR_PASSWORD = 2;
-    const ERROR_MAIL = 3;
+    const ERROR_USERNAME = 'bad_username';
+    const ERROR_PASSWORD = 'bad_password';
+    const ERROR_MAIL = 'bad_mail';
 
     public function __construct($datas = [])
     {
@@ -41,8 +41,8 @@ class Administrator {
      */
     public function setMail($mail): void
     {
-        if(!is_string($mail) && empty($mail))
-            $this->errors = self::ERROR_MAIL;
+        /*if(!is_string($mail) || empty($mail))
+            $this->errors = self::ERROR_MAIL;*/
         $this->mail = $this->checkSetter($mail);
     }
 
@@ -58,7 +58,7 @@ class Administrator {
      */
     public function setPassword($password): void
     {
-        if(!is_string($password) && empty($password))
+        if(!is_string($password) || empty($password))
             $this->errors = self::ERROR_PASSWORD;
         $this->password = $this->checkSetter($password);
     }
@@ -76,7 +76,7 @@ class Administrator {
      */
     public function setUsername($username): void
     {
-        if(!is_string($username) && empty($username))
+        if(!is_string($username) || empty($username))
             $this->errors = self::ERROR_USERNAME;
         $this->username = $this->checkSetter($username);
     }

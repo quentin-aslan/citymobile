@@ -1,21 +1,21 @@
 <?php
 
 namespace citymobile;
+session_start();
 
 use Administrator;
 use PDO;
 
 class AdministratorManager extends Manager {
-
-    const CONNECT = 1;
-    const ERROR_CONNECT = 2;
+    private $errors = [];
+    const ERROR_CONNECT = 'bad_id';
 
     /**
      * Get administrator from DB.
      * @param Administrator $administrator
      * @return Administrator
      */
-    public function get(Administrator $administrator): Administrator {
+    private function get(Administrator $administrator): Administrator {
         $q = $this->db->prepare("SELECT * FROM administrator WHERE username = :username");
         $q->bindValue('username', $administrator->getUsername());
         $q->execute();
@@ -35,7 +35,6 @@ class AdministratorManager extends Manager {
         $q = $this->db->prepare("SELECT count(*) FROM administrator WHERE username = :username");
         $q->bindValue('username', $administrator->getUsername());
         $q->execute();
-
         return $q->fetchColumn()>0;
     }
 
@@ -51,8 +50,10 @@ class AdministratorManager extends Manager {
 
     /**
      * Connecting the administrator and creating the SESSION
+     * return $errors -> empty if administrator is connected.
+     * or $errors = ERROR_CONNECT if the administrator is not connected
      * @param Administrator $administrator
-     * @return int
+     * @return array|int
      */
     public function connect(Administrator $administrator) {
         if($this->checkExist($administrator)) {
@@ -60,16 +61,15 @@ class AdministratorManager extends Manager {
             if($this->checkPassword($administrator, $realAdministrator)) {
                 unset($administrator);
                 $administrator = $realAdministrator;
-                $_SESSION['administratorId'] = $administrator->getId();
-                $_SESSION['administratorUsername'] = $administrator->getUsername();
-                $_SESSION['administratorMail'] = $administrator->getMail();
+                $_SESSION['admin_id'] = $administrator->getId();
+                $_SESSION['admin_username'] = $administrator->getUsername();
+                $_SESSION['admin_mail'] = $administrator->getMail();
 
-                $return = self::CONNECT;
-            } else { $return = self::ERROR_CONNECT; }
+            } else { $this->errors = self::ERROR_CONNECT; }
 
-        }else { $return = self::ERROR_CONNECT; };
+        }else { $this->errors = self::ERROR_CONNECT; };
 
-        return $return;
+        return $this->errors;
 
     }
 

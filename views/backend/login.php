@@ -2,7 +2,7 @@
 
     <?php
     if(!empty($errors)) {
-        if ($errors=='badID') {
+        if ($errors==\citymobile\AdministratorManager::ERROR_CONNECT) {
             echo '<div class="alert alert-danger" role="alert">Vous avez entré de mauvais identifiants</div>';
         }else{
             echo'<div class="alert alert-danger" role="alert">Vous devez remplir les champs du formulaire</div>';
@@ -18,10 +18,10 @@
 
             <center>
                 <div class="card-body">
-                    <form method="POST" action="index.php?p=login" class="col-lg-7">
+                    <form method="POST" action="index.php?p=admin_login" class="col-lg-7">
                         <div class="form-group">
-                            <label for="pseudo">Pseudo : </label>
-                            <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Entrer le pseudo">
+                            <label for="username">Pseudo : </label>
+                            <input type="text" class="form-control" id="pseudo" name="username" placeholder="Entrer le pseudo">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

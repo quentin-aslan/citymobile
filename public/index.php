@@ -26,18 +26,17 @@ try {
             $controllerFrontend->listArticles();
             break;
 
-// ------------ BACK-END ------------
-        case 'login':
+        case 'admin_login':
             $controllerBackend->login();
             break;
 
-        case 'add_article':
+        case 'admin_add_article':
             $controllerBackend->addArticle();
             break;
 
-        case 'update_article':
+        case 'admin_update_article':
             $controllerBackend->editArticle();
-
+            break;
 
         default:
             require '../views/frontend/home.php';
@@ -47,9 +46,9 @@ try {
     $content = ob_get_clean();
     require '../views/template/layout.php';
 }catch (Exception $e) {
-    $content = "<div class='alert alert-danger'>";
+    $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();
-    $content.= "<br/><a href='index.php?p=home'>Retour à la plage d'accueil</a></div>";
+    $content.= "<br/><a href='index.php?p=home'>Retour à la page d'accueil</a></div></div>";
     require '../views/template/layout.php';
 
 }
