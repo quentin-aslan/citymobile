@@ -22,21 +22,19 @@ try {
             $controllerFrontend->home();
             break;
 
-        case 'get_articles':
+        case 'list_articles':
             $controllerFrontend->listArticles();
             break;
-            // BACK END
+
+// ------------ BACK-END ------------
 
         case 'add_article':
             $controllerBackend->addArticle();
             break;
 
-        case 'single':
-            if (isset($_GET['id']))
-                FrontSingle();
-            else
-                FrontHome();
-            break;
+        case 'update_article':
+            $controllerBackend->editArticle();
+
 
         default:
             require '../views/frontend/home.php';

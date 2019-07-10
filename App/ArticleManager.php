@@ -51,12 +51,9 @@ class ArticleManager extends Manager
         $q->bindValue('id', $id);
         $q->execute();
 
-        $q->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Article');
-        $article = $q->fetch();
+        $article = $q->fetch(PDO::FETCH_ASSOC);
 
-        $article->setDateCreate($article->getDateCreate());
-
-        return $article;
+        return new Article($article);
     }
 
     public function getList($start = -1, $limit = -1)
@@ -66,9 +63,12 @@ class ArticleManager extends Manager
             $sql .= ' LIMIT ' . (int)$limit . ' OFFSET ' . (int)$start;
         }
         $q = $this->db->query($sql);
-        $q->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Article');
-        $list = $q->fetchAll();
-        return $list;
+
+        while($datas = $q->fetch(PDO::FETCH_ASSOC)) {
+            $articles [] = new Article($datas);
+        }
+
+        return $articles;
     }
 
     public function count()

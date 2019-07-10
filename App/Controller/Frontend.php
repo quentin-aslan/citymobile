@@ -22,7 +22,7 @@ class ControllerFrontend {
 
     public function listArticles() {
         $articleManager = new ArticleManager();
-        $list = $articleManager->getList();
+        $articles = $articleManager->getList();
 
         require '../views/Frontend/listArticle.php';
 

@@ -22,7 +22,6 @@ class ControllerBackend {
     }
 
     public function addArticle() {
-
         $photo = new Photo($_FILES);
         $article = new Article($_POST);
         $articleManager = new ArticleManager();

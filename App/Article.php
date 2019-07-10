@@ -30,11 +30,15 @@ class Article
     {
         foreach ($datas as $key => $value) {
             $method = 'set' . ucfirst($key);
-            $this->$method($value);
+            if(method_exists($this, $method))
+                $this->$method($value);
         }
     }
 
     public function isNew() { return empty($this->id); }
+    private function checkSetter($value) {
+        return htmlspecialchars($value);
+    }
 
     // Getter & Setter
 
@@ -51,7 +55,7 @@ class Article
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id =(int) $id;
     }
 
     /**
@@ -69,7 +73,7 @@ class Article
     {
         if(!is_string($type) && empty($type))
             $this->errors = self::ERROR_TYPE;
-        $this->type = $type;
+        $this->type = $this->checkSetter($type);
     }
 
     /**
@@ -87,7 +91,7 @@ class Article
     {
         if(!is_string($mark) && empty($mark))
             $this->errors = self::ERROR_MARK;
-        $this->mark = $mark;
+        $this->mark = $this->checkSetter($mark);
     }
 
     /**
@@ -105,7 +109,7 @@ class Article
     {
         if(!is_string($name) && empty($name))
             $this->errors = self::ERROR_NAME;
-        $this->name = $name;
+        $this->name = $this->checkSetter($name);
     }
 
     /**
@@ -139,7 +143,7 @@ class Article
     {
         if(!is_string($photo) && empty($photo))
             $this->errors = self::ERROR_PHOTO;
-        $this->photo = $photo;
+        $this->photo = $this->checkSetter($photo);
     }
 
     /**
@@ -157,7 +161,7 @@ class Article
     {
         if (!is_string($description) && empty($description))
             $this->errors = self::ERROR_DESCRIPTION;
-        $this->description = $description;
+        $this->description = $this->checkSetter($description);
     }
 
     /**
