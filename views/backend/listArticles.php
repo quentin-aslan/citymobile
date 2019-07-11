@@ -3,7 +3,7 @@
     <center>
         <h2>
             <a href="index.php?p=admin_add_article" class="btn btn-success">Ajouter un nouvelle article</a>
-            <a href="index.php?p=list_articles" class="btn btn-primary">Liste des articles vu par les clients</a>
+            <a href="index.php?p=list_articles" class="btn btn-primary">Liste des articles vu par les clients <em>(Avec photos)</em></a>
         </h2>
     </center>
 
@@ -31,7 +31,7 @@
             <td><?= $article->getDateCreate(); ?></td>
             <td>
                 <a href="index.php?p=admin_update_article&token=<?= $article->getId(); ?>" class="btn btn-warning">Modifier</a>
-                <a href="index.php?p=admin_update_article&token=<?= $article->getId(); ?>" class="btn btn-danger">Supprimer</a>
+                <a href="index.php?p=admin_delete_article&token=<?= $article->getId(); ?>" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer l\'article : <?= $article->getName(); ?>');">Supprimer</a>
                 <!-- <form action="index.php?p=admin_delete_article" method="post"><input type="text" class="btn btn-danger" value="supprimer" /></form> -->
             </td>
         </tr>

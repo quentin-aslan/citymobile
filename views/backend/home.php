@@ -28,7 +28,7 @@
             </div>
         </div>
 
-
+        <!--
         <div class="card box-shadow">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Réparations</h4>
@@ -40,5 +40,6 @@
 
             </div>
         </div>
+        -->
     </div>
 </div>

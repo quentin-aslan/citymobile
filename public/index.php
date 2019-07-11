@@ -4,11 +4,11 @@ use citymobile\Autoloader;
 use citymobile\ControllerBackend;
 use citymobile\ControllerFrontend;
 session_start();
-require '../App/Autoloader.php';
+require '../App/class/Autoloader.php';
 Autoloader::register();
 
-require '../App/Controller/Frontend.php';
-require '../App/Controller/Backend.php';
+require '../App/controller/Frontend.php';
+require '../App/controller/Backend.php';
 $controllerFrontend = new ControllerFrontend();
 $controllerBackend = new ControllerBackend();
 
@@ -30,6 +30,10 @@ try {
             $controllerBackend->login();
             break;
 
+        case 'admin_logout':
+            $controllerBackend->logout();
+            break;
+
         case 'admin_list_articles':
             $controllerBackend->listArticles();
             break;
@@ -43,7 +47,7 @@ try {
             break;
 
         case 'admin_update_article':
-            $controllerBackend->editArticle();
+            $controllerBackend->updateArticle($_GET['token']);
             break;
 
         case 'admin_delete_article':
@@ -66,6 +70,9 @@ try {
     $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();
     $content.= "<br/><a href='index.php?p=home'>Retour à la page d'accueil</a></div></div>";
-    require '../views/template/layout.php';
+    if(\citymobile\AdministratorManager::isConnected())
+        require '../views/template/layoutBack.php';
+    else
+        require '../views/template/layout.php';
 
 }
