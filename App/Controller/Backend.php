@@ -75,7 +75,8 @@ class ControllerBackend
             else {
                 $photo->add(); // Add photo on the server.
                 $this->articleManager->save($article);
-                echo '<div class="container"><div class="alert alert-success">Votre article à bien été ajouté <br />> <a href="index.php?p=admin_list_articles">Afficher la liste des articles.</a></div></div>';
+                echo '<div class="container"><div class="alert alert-success">L\'article <em>"'.$article->getName().'"</em> à bien été ajouté </div></div>';
+                $this->listArticles();
             }
         } else {
             require '../views/backend/addArticle.php';
@@ -111,14 +112,37 @@ class ControllerBackend
                 if(!empty($_FILES['name']))
                     $photo->add(); // Add photo on the server.
                 $this->articleManager->save($article);
-                echo '<div class="container"><div class="alert alert-success">Votre article à bien été modifié <br />> <a href="index.php?p=admin_list_articles">Afficher la liste des articles.</a></div></div>';
+                echo '<div class="container"><div class="alert alert-success">L\'article <em>"'.$article->getName().'"</em> à bien été modifié</div></div>';
+                $this->listArticles();
+
             }
         } else {
             $article = $this->articleManager->get($id);
             require '../views/backend/updateArticle.php';
         }
 
-        // View
+    }
+
+    // OBJET ?? CLASS CONTROLLERMANAGER ?
+    public function pagination($page, $manager, $numberPerPage) {
+        $totalArticle = $manager->count();
+        $numberPages = ceil($totalArticle / $numberPerPage);
+        $firstArticle = ($page-1)*$numberPerPage;
+        $return['articles'] = $manager->getList($firstArticle, $numberPerPage);
+        $return['view'] = $this->paginationView($page, $numberPages);
+        return $return;
+    }
+
+    public function paginationView($page, $numberPage) {
+        $html = '<nav aria-label="pagination">';
+        $html .= '<ul class="pagination">';
+        if($page>1)
+            $html .= '<li class="page-item"><a class="page-link" href="index.php?p=admin_list_articles&numberPage='.($page-1).'">Page précédente</a></li>';
+        if($page<$numberPage)
+            $html .= '<li class="page-item"><a class="page-link" href="index.php?p=admin_list_articles&numberPage='.($page+1).'" >Page suivante</a></li>';
+        $html .= '</ul></nav>';
+
+        return $html;
     }
 
     public
@@ -126,7 +150,15 @@ class ControllerBackend
     {
         if (!AdministratorManager::isConnected())
             header('location: index.php?p=admin_login');
-        $articles = $this->articleManager->getList();
+
+        // Pagination
+        $numberArticlePerPage = 5;
+        $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
+        $pagination = $this->pagination($page, $this->articleManager, $numberArticlePerPage);
+        $articles = $pagination['articles'];
+        $paginationView = $pagination['view'];
+
+
         require '../views/backend/listArticles.php';
     }
 
@@ -136,7 +168,8 @@ class ControllerBackend
         if (isset($token) && !empty($token)) {
             if ($this->articleManager)
                 $this->articleManager->delete($token);
-            echo '<div class="container"><div class="alert alert-success">L\'article à bien été supprimé <br />> <a href="index.php?p=admin_list_articles">Afficher la liste des articles.</a></div></div>';
+            echo '<div class="container"><div class="alert alert-success">L\'article à bien été supprimé</div></div>';
+            $this->listArticles();
         }
     }
 

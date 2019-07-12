@@ -99,6 +99,9 @@ class ArticleManager extends Manager
             $articles [] = new Article($datas);
         }
 
+        if(empty($articles))
+            throw new \Exception("Une erreur est survenue lors de la récupération des articles");
+
         return $articles;
     }
 

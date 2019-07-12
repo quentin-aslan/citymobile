@@ -47,7 +47,7 @@
                             <div class="alert alert-danger">
                                 Si vous laissez ce champs vide, la photo ne sera pas modifié, à l'inverse si vous remplissez ce champs l'ancienne sera automatiquement supprimé.
                                 <br />
-                                <strong>Photo actuel :</strong>
+                                <strong>Photo actuelle :</strong>
                                 <br />
                                 <img width="286" height="100" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
                             </div>

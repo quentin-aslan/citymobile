@@ -12,8 +12,8 @@
             </div>
             <div class="card-body">
                 <p>Vous pouvez ajouter, modifier et supprimer les articles afficher sur le site et sur les applications</p>
-                <a href="index.php?p=admin_add_article" type="button" class="btn btn-lg btn-block btn-outline-success text-success">Ajouter un article</a>
-                <a href="index.php?p=admin_list_articles" type="button" class="btn btn-lg btn-block btn-outline-primary text-primary">Acceder à la liste des articles</a>
+                <a href="index.php?p=admin_add_article" class="btn btn-lg btn-block btn-outline-success text-success">Ajouter un article</a>
+                <a href="index.php?p=admin_list_articles" class="btn btn-lg btn-block btn-outline-primary text-primary">Acceder à la liste des articles</a>
             </div>
         </div>
 
@@ -23,8 +23,8 @@
             </div>
             <div class="card-body">
                 <p>Vous pouvez ajouter, modifier et supprimer les news afficher sur le site et sur les applications.</p>
-                <a href="index.php?p=ajouter_news" type="button" class="btn btn-lg btn-block btn-outline-success text-success">Ajouter une news</a>
-                <a href="index.php?p=liste_news" type="button" class="btn btn-lg btn-block btn-outline-primary text-primary">Acceder à la liste des news</a>
+                <a href="index.php?p=ajouter_news"class="btn btn-lg btn-block btn-outline-success text-success">Ajouter une news</a>
+                <a href="index.php?p=liste_news"class="btn btn-lg btn-block btn-outline-primary text-primary">Acceder à la liste des news</a>
             </div>
         </div>
 

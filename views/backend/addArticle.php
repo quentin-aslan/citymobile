@@ -2,9 +2,9 @@
 
 
     <?php
-    if(!empty($errors)) {
-            echo'<div class="alert alert-danger" role="alert">Vous devez remplir les champs du formulaire (La photo comprise)<br /> </div>';
-    }?>
+    if (!empty($errors)) {
+        echo '<div class="alert alert-danger" role="alert">Vous devez remplir les champs du formulaire (La photo comprise)<br /> </div>';
+    } ?>
 
     <div class="card-deck text-center">
         <div class="card mb-4 box-shadow">
@@ -14,7 +14,8 @@
             </div>
             <center>
                 <div class="card-body">
-                    <form method="POST" action="index.php?p=admin_add_article" enctype="multipart/form-data" class="col-lg-7">
+                    <form method="POST" action="index.php?p=admin_add_article" enctype="multipart/form-data"
+                          class="col-lg-7">
 
                         <div class="form-group">
                             <label for="name">Nom de l'article :</label>
@@ -46,15 +47,16 @@
                             <input type="file" class="form-control-file" name="photo">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group alert alert-warning">
                             <label for="prix">Description du produit :</label>
-                            <textarea name="description" class="form-control">
-xxxxxx
-- Capacité :
-                            </textarea>
-                        </div>
+                            <div style="font-weight: bold">Capacité de stockage, RAM, Taille
+                                d'écran, Double Sim, Qualité de l'appareil photo.</div>
+                                <textarea rows="5" name="description" class="form-control">
+Capacité de stockage : XXGo
+Dimension : XX</textarea>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
                 </div>
             </center>
