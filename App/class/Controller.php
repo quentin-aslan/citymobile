@@ -35,13 +35,11 @@ abstract class Controller {
 
     private function paginationView($page, $numberPage, $namePage) {
         $url = 'index.php?p='.$namePage.'&numberPage=';
-        $html = '<nav aria-label="pagination">';
-        $html .= '<ul class="pagination">';
         if($page>1)
-            $html .= '<li class="page-item"><a class="page-link" href="'.$url.($page-1).'">Page précédente</a></li>';
-        if($page<$numberPage)
-            $html .= '<li class="page-item"><a class="page-link" href="'.$url.($page+1).'" >Page suivante</a></li>';
-        $html .= '</ul></nav>';
+            $html= '<p style="text-align: center;"><a href="'.$url.($page-1).'" class="btn btn-lg btn-dark">Page précédente</a></p>';
+        else if ($page<$numberPage)
+            $html= '<p style="text-align: center;"><a href="'.$url.($page+1).'" class="btn btn-lg btn-dark">Page suivante</a></p>';
+
 
         return $html;
     }

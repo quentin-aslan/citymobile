@@ -4,7 +4,7 @@
 </div>
 
 <div class="container">
-    <div class="card-deck text-center">
+    <div class="card-deck col-lg-12 text-center">
 
         <?php
         /** @var ArrayObject $articles */
@@ -14,8 +14,8 @@
             /** @var \citymobile\Article $article */
         if($i==4){?>
 
-        <div class="card col-lg-3 mb-3 shadow-sm">
-            <img class="card-img-top" width="286" height="180" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
+        <div class="card col-lg-3 col-md-12 mb-3 shadow-sm">
+            <img class="card-img-top" width="286" height="180" src="img/articles/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
             <div class="card-body">
                 <h5 class="card-title"><?= $article->getName(); ?></h5>
                 <ul class="list-unstyled mt-3 mb-4">
@@ -25,13 +25,13 @@
             </div>
         </div>
     </div>
-    <div class="card-deck text-center">
+    <div class="card-deck col-lg-12 text-center">
         <?php
         $i=0;
         }else{
             ?>
-            <div class="card col-lg-3 mb-3 shadow-sm">
-                <img class="card-img-top" width="286" height="180" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
+            <div class="card col-lg-3 col-md-12  mb-3 shadow-sm">
+                <img class="card-img-top" width="286" height="180" src="img/articles/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?= $article->getName(); ?></h5>
                     <ul class="list-unstyled mt-3 mb-4">

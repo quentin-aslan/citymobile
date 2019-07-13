@@ -11,7 +11,7 @@ Class Photo {
     private $nameTemp;
     private $name;
     private $extension;
-    private $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+    private $extensions = array('.png','.jpg', '.jpeg');
     private $folder;
     private $path;
 
@@ -22,7 +22,7 @@ Class Photo {
     {
         $this->nameBefore = $photo['photo']['name'];
         $this->nameTemp = $photo['photo']['tmp_name'];
-        $this->folder = 'img/';
+        $this->folder = 'img/articles/';
         $this->extension = strtolower(strrchr($_FILES['photo']['name'], '.'));
         $this->name = uniqid().$this->extension;
         $this->path =$this->folder . $this->name;
@@ -38,73 +38,67 @@ Class Photo {
 
         if(!move_uploaded_file($this->nameTemp, $this->path))
             throw new Exception(self::ERROR_UPLOAD);
-        else
-            $a=0;
-            //$this->redimensionner_image($this->path, 286, 180 );
+
+        // FOR FIX IOS PHOTO
+        $this->correctImageOrientation($this);
     }
 
     public function getName() {
         return $this->name;
     }
 
-    //SCRIPT D'UPLOAD D'IMAGE
-    public function redimensionner_image($fichier, $longueur, $largeur) {
 
-        //VARIABLE D'ERREUR
-        global $error;
+    /**
+     * Fix orientation IOS PHOTO
+     * @param Photo $photo
+     * @throws Exception
+     */
+    public function correctImageOrientation(Photo $photo) {
+        $path = $this->path;
+        $filen = $this->getName();
+        $ext = $this->extension;
+        try {
 
-        //TAILLE EN PIXELS DE L'IMAGE REDIMENSIONNEE
+            $exif = @exif_read_data($path);
 
-        //TAILLE DE L'IMAGE ACTUELLE
-        $taille = getimagesize($fichier);
+            $orientation = isset($exif['Orientation']) ? $exif['Orientation'] : null;
 
-        //SI LE FICHIER EXISTE
-        if ($taille) {
+            if (isset($orientation) && $orientation != 1){
+                switch ($orientation) {
+                    case 3:
+                        $deg = 180;
+                        break;
+                    case 6:
+                        $deg = 270;
+                        break;
+                    case 8:
+                        $deg = 90;
+                        break;
+                }
 
-            //SI JPG
-            if ($taille['mime']=='image/jpeg' ) {
-                //OUVERTURE DE L'IMAGE ORIGINALE
-                $img_big = imagecreatefromjpeg($fichier);
-                $img_new = imagecreate($longueur, $largeur);
+                if ($deg) {
 
-                //CREATION DE LA MINIATURE
-                $img_petite = imagecreatetruecolor($longueur, $largeur) or $img_petite = imagecreate($longueur, $largeur);
+                    // If png
+                    if ($ext == "png") {
+                        $img_new = imagecreatefrompng($path);
+                        $img_new = imagerotate($img_new, $deg, 0);
 
-                //COPIE DE L'IMAGE REDIMENSIONNEE
-                imagecopyresized($img_petite,$img_big,0,0,0,0,$longueur,$largeur,$taille[0],$taille[1]);
-                imagejpeg($img_petite,$fichier);
+                        // Save rotated image
+                        imagepng($img_new,$path);
+                    }else {
+                        $img_new = imagecreatefromjpeg($path);
+                        $img_new = imagerotate($img_new, $deg, 0);
 
+                        // Save rotated image
+                        imagejpeg($img_new,$path,80);
+                    }
+                }
             }
 
-            //SI PNG
-            else if ($taille['mime']=='image/png' ) {
-                //OUVERTURE DE L'IMAGE ORIGINALE
-                $img_big = imagecreatefrompng($fichier); // On ouvre l'image d'origine
-                $img_new = imagecreate($longueur, $largeur);
-
-                //CREATION DE LA MINIATURE
-                $img_petite = imagecreatetruecolor($longueur, $largeur) OR $img_petite = imagecreate($longueur, $largeur);
-
-                //COPIE DE L'IMAGE REDIMENSIONNEE
-                imagecopyresized($img_petite,$img_big,0,0,0,0,$longueur,$largeur,$taille[0],$taille[1]);
-                imagepng($img_petite,$fichier);
-
-            }
-            // GIF
-            else if ($taille['mime']=='image/gif' ) {
-                //OUVERTURE DE L'IMAGE ORIGINALE
-                $img_big = imagecreatefromgif($fichier);
-                $img_new = imagecreate($longueur, $largeur);
-
-                //CREATION DE LA MINIATURE
-                $img_petite = imagecreatetruecolor($longueur, $largeur) or $img_petite = imagecreate($longueur, $largeur);
-
-                //COPIE DE L'IMAGE REDIMENSIONNEE
-                imagecopyresized($img_petite,$img_big,0,0,0,0,$longueur,$largeur,$taille[0],$taille[1]);
-                imagegif($img_petite,$fichier);
-
-            }
+        } catch (Exception $e) {
+            throw new Exception("L'image n'a pas pu être ré-orienté");
         }
+        unset($file);
     }
 
 

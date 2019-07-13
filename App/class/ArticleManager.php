@@ -85,11 +85,16 @@ class ArticleManager extends Manager
      * Get all Articles from DB
      * @param int $start
      * @param int $limit
+     * @param string $type
      * @return array
+     * @throws \Exception
      */
-    public function getList($start = -1, $limit = -1)
+    public function getList($start = -1, $limit = -1, $type = 'aucun')
     {
-        $sql = 'SELECT * FROM article ORDER BY id DESC';
+        $sql = 'SELECT * FROM article';
+        if($type != 'aucun')
+            $sql.= ' WHERE type = \''.$type.'\'';
+        $sql.= ' ORDER BY id DESC';
         if ($start != -1 || $limit != -1) {
             $sql .= ' LIMIT ' . (int)$limit . ' OFFSET ' . (int)$start;
         }

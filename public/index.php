@@ -58,7 +58,10 @@ try {
             break;
 
         default:
-            require '../views/frontend/home.php';
+            if(AdministratorManager::isConnected())
+                $controllerBackend->home();
+            else
+                $controllerFrontend->home();
             break;
     }
 

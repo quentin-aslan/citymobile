@@ -30,9 +30,9 @@
                         <div class="form-group">
                             <label for="type">Type</label>
                             <select class="form-control" name="type">
-                                <option>Telephones</option>
-                                <option>Accessoires</option>
-                                <option>Tablette</option>
+                                <option>telephone</option>
+                                <option>accessoire</option>
+                                <option>tablette</option>
                                 <!-- <option>Pour ajouter des "Type" contacter le développeur (quentin.aslan@outlook.com)</option> -->
                             </select>
                         </div>

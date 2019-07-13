@@ -17,10 +17,10 @@
 <!-- Menu -->
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">City Mobile - <span class="text-danger">Administration</span></h5>
-    <!-- Faire un menu défilant pour les articles en ventes et afficher les différentes catégories -->
-    <a class="p-2 text-danger" href="?p=admin_logout">Retour au site</a>
-    <a class="p-2 text-primary" href="?p=admin_list_articles">Gerer les articles</a>
-    <a class="p-2 text-success" href="?p=admin_list_news">Gerer les news</a>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-outline-danger" href="?p=admin_logout"">Retour au site</a>
+        <a class="btn btn-outline-primary" href="?p=admin_list_articles">Gerer les articles</a>
+    </nav>
 
 </div>
 

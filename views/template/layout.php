@@ -18,11 +18,10 @@
     <h5 class="my-0 mr-md-auto font-weight-normal">City Mobile</h5>
     <nav class="my-2 my-md-0 mr-md-3">
         <!-- Faire un menu défilant pour les articles en ventes et afficher les différentes catégories -->
-        <a class="p-2 text-dark" href="?p=home">Accueil</a>
-        <a class="p-2 text-dark" href="?p=list_articles">Articles en ventes</a>
-        <a class="p-2 text-dark" href="?p=list_reparations">Réparations</a>
+        <a class="btn btn-outline-info" href="?p=home"">Accueil</a>
+        <a class="btn btn-outline-primary" href="?p=list_articles">Articles en ventes</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#">Contact</a>
+
 </div>
 
 <!-- Fin Menu -->
