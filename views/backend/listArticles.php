@@ -24,7 +24,7 @@
         foreach ($articles as $article) {
         ?>
         <tr>
-            <th scope="row"><?= $article->getName() ?></th>
+            <th scope="row"><a href="#" data-toggle="modal" data-target="#article_<?= $article->getId(); ?>"><?= $article->getName(); ?></a></th>
             <td><?= $article->getType(); ?></td>
             <td><?= $article->getMark(); ?></td>
             <td><?= $article->getPrice(); ?></td>
@@ -35,7 +35,10 @@
                 <!-- <form action="index.php?p=admin_delete_article" method="post"><input type="text" class="btn btn-danger" value="supprimer" /></form> -->
             </td>
         </tr>
-        <?php } ?>
+
+        <?php
+            $this->viewArticle($article->getId());
+        } ?>
         </tbody>
     </table>
 

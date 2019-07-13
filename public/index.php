@@ -1,5 +1,6 @@
 <?php
 
+use citymobile\AdministratorManager;
 use citymobile\Autoloader;
 use citymobile\ControllerBackend;
 use citymobile\ControllerFrontend;
@@ -23,7 +24,8 @@ try {
             break;
 
         case 'list_articles':
-            $controllerFrontend->listArticles();
+            $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
+            $controllerFrontend->listArticles($page);
             break;
 
         case 'admin_login':
@@ -35,7 +37,8 @@ try {
             break;
 
         case 'admin_list_articles':
-            $controllerBackend->listArticles();
+            $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
+            $controllerBackend->listArticles($page);
             break;
 
         case 'admin_home':
@@ -62,7 +65,7 @@ try {
 
 
     $content = ob_get_clean();
-    if(\citymobile\AdministratorManager::isConnected())
+    if(AdministratorManager::isConnected())
         require '../views/template/layoutBack.php';
     else
         require '../views/template/layout.php';
@@ -70,7 +73,7 @@ try {
     $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();
     $content.= "<br/><a href='index.php?p=home'>Retour à la page d'accueil</a></div></div>";
-    if(\citymobile\AdministratorManager::isConnected())
+    if(AdministratorManager::isConnected())
         require '../views/template/layoutBack.php';
     else
         require '../views/template/layout.php';

@@ -12,32 +12,22 @@ use Photo;
  * @author Quentin Aslan <quentin.aslan@outlook.com>
  * @since 10/07/2019
  */
-class ControllerBackend
+class ControllerBackend extends Controller
 {
-    private $articleManager;
-
-    public function __construct()
-    {
-        $this->articleManager = new ArticleManager();
-    }
-
 
     /**
      * Require Home Page.
      */
     public function home()
     {
-        if (!AdministratorManager::isConnected())
+        if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
         require '../views/Backend/home.php';
     }
 
-    /**
-     * form administrator login
-     */
     public function login()
     {
-        if (AdministratorManager::isConnected())
+        if ($this->administratorManager->isConnected())
             header('location: index.php?p=admin_home');
 
         if (!empty($_POST)) {
@@ -46,8 +36,7 @@ class ControllerBackend
             if (!empty($errors))
                 require '../views/backend/login.php';
             else {
-                $administratorManager = new AdministratorManager();
-                $errors = $administratorManager->connect($administrator);
+                $errors = $this->administratorManager->connect($administrator);
                 if (!empty($errors))
                     require '../views/backend/login.php';
                 else
@@ -63,7 +52,7 @@ class ControllerBackend
 
     public function addArticle()
     {
-        if(!AdministratorManager::isConnected())
+        if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
         if(!empty($_POST)) {
             $photo = new Photo($_FILES);
@@ -86,7 +75,7 @@ class ControllerBackend
     public function updateArticle($id)
     {
         $id = (int)$id;
-        if (!AdministratorManager::isConnected())
+        if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
 
         if (!empty($_POST)) {
@@ -123,38 +112,12 @@ class ControllerBackend
 
     }
 
-    // OBJET ?? CLASS CONTROLLERMANAGER ?
-    public function pagination($page, $manager, $numberPerPage) {
-        $totalArticle = $manager->count();
-        $numberPages = ceil($totalArticle / $numberPerPage);
-        $firstArticle = ($page-1)*$numberPerPage;
-        $return['articles'] = $manager->getList($firstArticle, $numberPerPage);
-        $return['view'] = $this->paginationView($page, $numberPages);
-        return $return;
-    }
-
-    public function paginationView($page, $numberPage) {
-        $html = '<nav aria-label="pagination">';
-        $html .= '<ul class="pagination">';
-        if($page>1)
-            $html .= '<li class="page-item"><a class="page-link" href="index.php?p=admin_list_articles&numberPage='.($page-1).'">Page précédente</a></li>';
-        if($page<$numberPage)
-            $html .= '<li class="page-item"><a class="page-link" href="index.php?p=admin_list_articles&numberPage='.($page+1).'" >Page suivante</a></li>';
-        $html .= '</ul></nav>';
-
-        return $html;
-    }
-
-    public
-    function listArticles()
+    public function listArticles($page = 1)
     {
-        if (!AdministratorManager::isConnected())
+        if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
 
-        // Pagination
-        $numberArticlePerPage = 5;
-        $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
-        $pagination = $this->pagination($page, $this->articleManager, $numberArticlePerPage);
+        $pagination = $this->pagination($page, $this->articleManager, 10, 'admin_list_articles');
         $articles = $pagination['articles'];
         $paginationView = $pagination['view'];
 
@@ -162,8 +125,7 @@ class ControllerBackend
         require '../views/backend/listArticles.php';
     }
 
-    public
-    function deleteArticle($token)
+    public function deleteArticle($token)
     {
         if (isset($token) && !empty($token)) {
             if ($this->articleManager)
@@ -171,6 +133,13 @@ class ControllerBackend
             echo '<div class="container"><div class="alert alert-success">L\'article à bien été supprimé</div></div>';
             $this->listArticles();
         }
+    }
+
+    public function viewArticle($id)
+    {
+        $article = $this->articleManager->get($id);
+
+        require '../views/backend/article.php';
     }
 
     public function logout()

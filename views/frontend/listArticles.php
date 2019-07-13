@@ -21,7 +21,7 @@
                 <ul class="list-unstyled mt-3 mb-4">
                     <h3 class="card-title pricing-card-title"><?= $article->getPrice(); ?>€ <small class="text-muted"></small></h3>
                 </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Voir plus</button>
+                <button type="button" class="btn btn-lg btn-block btn-primary"" data-toggle="modal" data-target="#article_<?= $article->getId(); ?>"> Voir plus</button>
             </div>
         </div>
     </div>
@@ -37,13 +37,14 @@
                     <ul class="list-unstyled mt-3 mb-4">
                         <h3 class="card-title pricing-card-title"><?= $article->getPrice(); ?>€ <small class="text-muted"></small></h3>
                     </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-primary">Voir plus</button>
+                    <button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="modal" data-target="#article_<?= $article->getId(); ?>"> Voir plus</button>
                 </div>
             </div>
 
-
-        <?php }} ?>
-
+        <?php }
+        $this->viewArticle($article->getId());
+        } ?>
 
     </div>
+    <?= $paginationView; ?>
 </div>

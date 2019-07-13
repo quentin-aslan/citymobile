@@ -11,7 +11,7 @@ use Exception;
  * @since 08/07/2019
  */
 
-class ControllerFrontend {
+class ControllerFrontend extends Controller {
 
     /**
      * Require Home Page.
@@ -20,12 +20,21 @@ class ControllerFrontend {
         require '../views/Frontend/home.php';
     }
 
-    public function listArticles() {
-        $articleManager = new ArticleManager();
-        $articles = $articleManager->getList();
+    public function listArticles($page = 1) {
+
+        $pagination = $this->pagination($page, $this->articleManager, 8, 'list_articles');
+        $articles = $pagination['articles'];
+        $paginationView = $pagination['view'];
 
         require '../views/Frontend/listArticles.php';
 
+    }
+
+    public function viewArticle($id)
+    {
+        $article = $this->articleManager->get($id);
+
+        require '../views/frontend/article.php';
     }
 
 }

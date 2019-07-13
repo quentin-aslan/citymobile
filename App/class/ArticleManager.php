@@ -70,7 +70,7 @@ class ArticleManager extends Manager
     public function get($id)
     {
         if(!$this->checkExist($id))
-            throw new \Exception("L'article que vous essayez de modifier n'éxiste pas.");
+            throw new \Exception("L'article n'éxiste pas.");
 
         $q = $this->db->prepare('SELECT * FROM article WHERE id = :id');
         $q->bindValue('id', $id);
