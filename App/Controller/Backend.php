@@ -112,24 +112,24 @@ class ControllerBackend extends Controller
 
     }
 
-    public function listArticles($page = 1)
+    public function listArticles($page = 1, $type = 'nothing', $search = 'nothing')
     {
         if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
 
-        $pagination = $this->pagination($page, $this->articleManager, 10, 'admin_list_articles');
+        $pagination = $this->pagination($page, $this->articleManager, 10, 'admin_list_articles', $type, $search);
         $articles = $pagination['articles'];
         $paginationView = $pagination['view'];
-
 
         require '../views/backend/listArticles.php';
     }
 
-    public function deleteArticle($token)
+    public function deleteArticle($id)
     {
-        if (isset($token) && !empty($token)) {
-            if ($this->articleManager)
-                $this->articleManager->delete($token);
+        if (isset($id) && !empty($id)) {
+            $article = $this->articleManager->get($id);
+            Photo::delete('articles', $article->getPhoto());
+            $this->articleManager->delete($id);
             echo '<div class="container"><div class="alert alert-success">L\'article à bien été supprimé</div></div>';
             $this->listArticles();
         }

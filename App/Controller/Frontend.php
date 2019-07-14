@@ -17,12 +17,13 @@ class ControllerFrontend extends Controller {
      * Require Home Page.
      */
     public function home() {
+        $articles = $this->articleManager->getList(0, 4, 'telephone');
         require '../views/Frontend/home.php';
     }
 
-    public function listArticles($page = 1) {
+    public function listArticles($page = 1, $type = 'nothing', $search = 'nothing') {
 
-        $pagination = $this->pagination($page, $this->articleManager, 8, 'list_articles');
+        $pagination = $this->pagination($page, $this->articleManager, 8, 'list_articles', $type, $search);
         $articles = $pagination['articles'];
         $paginationView = $pagination['view'];
 

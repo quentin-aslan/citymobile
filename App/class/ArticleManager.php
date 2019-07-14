@@ -86,14 +86,17 @@ class ArticleManager extends Manager
      * @param int $start
      * @param int $limit
      * @param string $type
+     * @param string $search
      * @return array
      * @throws \Exception
      */
-    public function getList($start = -1, $limit = -1, $type = 'aucun')
+    public function getList($start = -1, $limit = -1, $type = 'nothing', $search = 'nothing')
     {
         $sql = 'SELECT * FROM article';
-        if($type != 'aucun')
+        if($type != 'nothing')
             $sql.= ' WHERE type = \''.$type.'\'';
+        if($search != 'nothing')
+            $sql.= ' LIKE \''.$search.'\'';
         $sql.= ' ORDER BY id DESC';
         if ($start != -1 || $limit != -1) {
             $sql .= ' LIMIT ' . (int)$limit . ' OFFSET ' . (int)$start;

@@ -49,7 +49,7 @@
                                 <br />
                                 <strong>Photo actuelle :</strong>
                                 <br />
-                                <img width="286" height="100" src="img/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
+                                <img width="286" height="100" src="img/articles/<?= $article->getPhoto(); ?>" alt="<?= $article->getName(); ?>">
                             </div>
                             <input type="file" class="form-control-file" name="photo" >
                             <input type="hidden" name="oldPhoto" value="<?= $article->getPhoto(); ?>">

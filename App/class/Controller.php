@@ -24,11 +24,11 @@ abstract class Controller {
      * @return array 'articles' -> list of articles
      *              'view' -> html pagination
      */
-    protected function pagination($page, $manager, $numberPerPage, $namePage) {
+    protected function pagination($page, $manager, $numberPerPage, $namePage, $type, $search) {
         $totalArticle = $manager->count();
         $numberPages = ceil($totalArticle / $numberPerPage);
         $firstArticle = ($page-1)*$numberPerPage;
-        $return['articles'] = $manager->getList($firstArticle, $numberPerPage);
+        $return['articles'] = $manager->getList($firstArticle, $numberPerPage, $type, $search);
         $return['view'] = $this->paginationView($page, $numberPages, $namePage);
         return $return;
     }

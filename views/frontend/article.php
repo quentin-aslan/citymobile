@@ -19,7 +19,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">Type : <b><?= $article->getType(); ?></b></li>
                     <li class="list-group-item">Marque : <b><?= $article->getMark(); ?></b></li>
-                    <li class="list-group-item">Prix: <b><?= $article->getPrice(); ?></b></li>
+                    <li class="list-group-item">Prix: <b><?= $article->getPrice(); ?>€</b></li>
                     <li class="list-group-item"><?= $article->getDescription(); ?></li>
                 </ul>
             </div>

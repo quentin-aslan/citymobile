@@ -13,7 +13,7 @@ require '../App/controller/Backend.php';
 $controllerFrontend = new ControllerFrontend();
 $controllerBackend = new ControllerBackend();
 
-$p = isset($_GET['p']) ? $_GET['p'] : 'home';
+$p = isset($_GET['p']) ? $_GET['p'] : 'default';
 try {
     ob_start();
 
@@ -25,7 +25,9 @@ try {
 
         case 'list_articles':
             $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
-            $controllerFrontend->listArticles($page);
+            $type = isset($_GET['type']) ? $_GET['type'] : 'nothing';
+            $search = isset($_GET['search']) ? $_GET['search'] : 'nothing';
+            $controllerFrontend->listArticles($page, $type, $search);
             break;
 
         case 'admin_login':
@@ -38,7 +40,8 @@ try {
 
         case 'admin_list_articles':
             $page = isset($_GET['numberPage']) ? $_GET['numberPage'] : 1;
-            $controllerBackend->listArticles($page);
+            $search = isset($_GET['search']) ? $_GET['search'] : 'nothing';
+            $controllerBackend->listArticles($page, $search);
             break;
 
         case 'admin_home':
