@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
-          content="City Mobile est une boutique de vente et de réparation pour téléphone situé à Paris.">
+          content="CityMobile, vente et réparation de téléphones à Paris porte de Pantin.">
     <meta name="author" content="Quentin Aslan">
     <title>City Mobile</title>
 
