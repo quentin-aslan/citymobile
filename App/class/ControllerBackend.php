@@ -22,7 +22,7 @@ class ControllerBackend extends Controller
     {
         if (!$this->administratorManager->isConnected())
             header('location: index.php?p=admin_login');
-        require '../views/Backend/home.php';
+        require ROOT.'/views/backend/home.php';
     }
 
     public function login()
@@ -34,18 +34,18 @@ class ControllerBackend extends Controller
             $administrator = new Administrator($_POST);
             $errors = $administrator->errors;
             if (!empty($errors))
-                require '../views/backend/login.php';
+                require ROOT.'/views/backend/login.php';
             else {
                 $errors = $this->administratorManager->connect($administrator);
                 if (!empty($errors))
-                    require '../views/backend/login.php';
+                    require ROOT.'/views/backend/login.php';
                 else
                     header('location: index.php?p=admin_home');
             }
 
 
         } else {
-            require '../views/backend/login.php';
+            require ROOT.'/views/backend/login.php';
         }
 
     }
@@ -60,7 +60,7 @@ class ControllerBackend extends Controller
             $article->setPhoto($photo->getName());
             $errors = $article->errors;
             if(!empty($errors))
-                require '../views/backend/addArticle.php';
+                require ROOT.'/views/backend/addArticle.php';
             else {
                 $photo->add(); // Add photo on the server.
                 $this->articleManager->save($article);
@@ -68,7 +68,7 @@ class ControllerBackend extends Controller
                 $this->listArticles();
             }
         } else {
-            require '../views/backend/addArticle.php';
+            require ROOT.'/views/backend/addArticle.php';
         }
     }
 
@@ -96,7 +96,7 @@ class ControllerBackend extends Controller
             $article->setPhoto($photoName);
             $errors = $article->errors;
             if (!empty($errors))
-                require '../views/backend/updateArticle.php';
+                require ROOT.'/views/backend/updateArticle.php';
             else {
                 if(!empty($_FILES['name']))
                     $photo->add(); // Add photo on the server.
@@ -107,7 +107,7 @@ class ControllerBackend extends Controller
             }
         } else {
             $article = $this->articleManager->get($id);
-            require '../views/backend/updateArticle.php';
+            require ROOT.'/views/backend/updateArticle.php';
         }
 
     }
@@ -121,7 +121,7 @@ class ControllerBackend extends Controller
         $articles = $pagination['articles'];
         $paginationView = $pagination['view'];
 
-        require '../views/backend/listArticles.php';
+        require ROOT.'/views/backend/listArticles.php';
     }
 
     public function deleteArticle($id)
@@ -139,7 +139,7 @@ class ControllerBackend extends Controller
     {
         $article = $this->articleManager->get($id);
 
-        require '../views/backend/article.php';
+        require ROOT.'/views/backend/article.php';
     }
 
     public function logout()

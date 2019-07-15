@@ -1,5 +1,5 @@
 <?php
-
+define('ROOT', dirname(dirname(__FILE__)));
 use citymobile\AdministratorManager;
 use citymobile\Autoloader;
 use citymobile\ControllerBackend;
@@ -8,8 +8,6 @@ session_start();
 require '../App/class/Autoloader.php';
 Autoloader::register();
 
-require '../App/controller/Frontend.php';
-require '../App/controller/Backend.php';
 $controllerFrontend = new ControllerFrontend();
 $controllerBackend = new ControllerBackend();
 
@@ -72,16 +70,16 @@ try {
 
     $content = ob_get_clean();
     if(AdministratorManager::isConnected())
-        require '../views/template/layoutBack.php';
+        require ROOT.'/views/template/layoutBack.php';
     else
-        require '../views/template/layout.php';
+        require ROOT.'/views/template/layout.php';
 }catch (Exception $e) {
     $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();
     $content.= "<br/><a href='index.php?p=home'>Retour à la page d'accueil</a></div></div>";
     if(AdministratorManager::isConnected())
-        require '../views/template/layoutBack.php';
+        require ROOT.'/views/template/layoutBack.php';
     else
-        require '../views/template/layout.php';
+        require ROOT.'/views/template/layout.php';
 
 }

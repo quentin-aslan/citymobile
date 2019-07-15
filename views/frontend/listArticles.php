@@ -1,7 +1,21 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Articles en vente</h1>
     <p class="lead">Voici touts les téléphones en vente dans notre magasin</p>
+    <!--
+    <form action="index.php?p=list_articles" method="GET" class="col-lg-12">
+        <p class="row">
+            <input type="hidden" name="p" value="list_articles">
+            <input class="form-control col-lg-8 col-offset mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+            <select class="form-control col-lg-3" name="type">
+                <option>telephone</option>
+                <option>accessoire</option>
+                <option>tablette</option>
+            </select>
+        </p>
+        <button class="btn btn-outline-success my-2 my-sm-0 col-lg-3" type="submit">Search</button>
+    </form> -->
 </div>
+
 
 <div class="container">
     <div class="card-deck col-lg-12 text-center">

@@ -18,7 +18,7 @@ class ControllerFrontend extends Controller {
      */
     public function home() {
         $articles = $this->articleManager->getList(0, 4, 'telephone');
-        require '../views/Frontend/home.php';
+        require ROOT.'/views/frontend/home.php';
     }
 
     public function listArticles($page = 1, $type = 'nothing', $search = 'nothing') {
@@ -27,7 +27,7 @@ class ControllerFrontend extends Controller {
         $articles = $pagination['articles'];
         $paginationView = $pagination['view'];
 
-        require '../views/Frontend/listArticles.php';
+        require ROOT.'/views/frontend/listArticles.php';
 
     }
 
@@ -35,7 +35,7 @@ class ControllerFrontend extends Controller {
     {
         $article = $this->articleManager->get($id);
 
-        require '../views/frontend/article.php';
+        require ROOT.'/views/frontend/article.php';
     }
 
 }
