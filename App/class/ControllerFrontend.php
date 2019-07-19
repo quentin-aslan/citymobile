@@ -31,11 +31,19 @@ class ControllerFrontend extends Controller {
 
     }
 
-    public function viewArticle($id)
+    private function viewModalArticle(Article $article)
     {
-        $article = $this->articleManager->get($id);
+        require ROOT.'/views/frontend/articleModal.php';
+    }
 
+    /**
+     * @param $articles array
+     * @return mixed
+     */
+    public function viewArticle($articles)
+    {
         require ROOT.'/views/frontend/article.php';
+
     }
 
 }

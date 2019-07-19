@@ -49,11 +49,9 @@
 
                         <div class="form-group alert alert-warning">
                             <label for="prix">Description du produit :</label>
-                            <div style="font-weight: bold">Capacité de stockage, RAM, Taille
-                                d'écran, Double Sim, Qualité de l'appareil photo.</div>
+                            <div style="font-weight: bold">Remplir une description du produit dans le champs ci-dessous.</div>
                                 <textarea rows="5" name="description" class="form-control">
-Capacité de stockage : XXGo
-Dimension : XX</textarea>
+Disponible en magasin.</textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Envoyer</button>

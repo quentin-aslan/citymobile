@@ -55,9 +55,10 @@
                             <input type="hidden" name="oldPhoto" value="<?= $article->getPhoto(); ?>">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group alert alert-warning">
                             <label for="prix">Description du produit :</label>
-                            <textarea name="description" class="form-control"><?= $article->getDescription(); ?></textarea>
+                            <div style="font-weight: bold">Remplir une description du produit dans le champs ci-dessous.</div>
+                            <textarea rows="5" name="description" class="form-control"><?= $article->getDescription(); ?></textarea>
                         </div>
 
                         <input type="hidden" name="id" value="<?= $article->getId(); ?>">

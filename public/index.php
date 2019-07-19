@@ -76,7 +76,7 @@ try {
 }catch (Exception $e) {
     $content = "<div class='container'><div class='alert alert-danger'>";
     $content.= $e->getMessage();
-    $content.= "<br/><a href='index.php?p=home'>Retour à la page d'accueil</a></div></div>";
+    $content.= "<br/><a href='index.php?p=default'>Retour à la page d'accueil</a></div></div>";
     if(AdministratorManager::isConnected())
         require ROOT.'/views/template/layoutBack.php';
     else

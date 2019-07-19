@@ -44,7 +44,7 @@ Class Photo {
     }
 
     public static function delete($type, $name) {
-        if(!unlink('img/'.$type.'/'.$name))
+        if(!unlink(ROOT.'/public/img/'.$type.'/'.$name))
             throw new Exception("La photo n'a pas été supprimé du serveur.");
     }
 

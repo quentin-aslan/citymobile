@@ -39,7 +39,8 @@ abstract class Controller {
             $html= '<p style="text-align: center;"><a href="'.$url.($page-1).'" class="btn btn-lg btn-dark">Page précédente</a></p>';
         else if ($page<$numberPage)
             $html= '<p style="text-align: center;"><a href="'.$url.($page+1).'" class="btn btn-lg btn-dark">Page suivante</a></p>';
-
+        else
+            $html = '';
 
         return $html;
     }

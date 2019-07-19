@@ -80,17 +80,16 @@ class ControllerBackend extends Controller
 
         if (!empty($_POST)) {
 
+            $article = new Article($_POST);
+
             if(empty($_FILES['photo']['name']))
                 $photoName = $_POST['oldPhoto'];
             else {
+                Photo::delete('articles', $_POST['oldPhoto']);
                 $photo = new Photo($_FILES);
                 $photo->add();
                 $photoName = $photo->getName();
             }
-
-            $article = new Article($_POST);
-            if ($article->isNew())
-                throw new Exception("L'article que vous essayer de modifier n'existe pas, <a href='index.php?p=admin_add_article'>cliquez ici pour en crée un</a>.");
 
             $article->setPhoto($_POST['oldPhoto']);
             $article->setPhoto($photoName);
@@ -135,11 +134,9 @@ class ControllerBackend extends Controller
         }
     }
 
-    public function viewArticle($id)
+    private function viewModalArticle(Article $article)
     {
-        $article = $this->articleManager->get($id);
-
-        require ROOT.'/views/backend/article.php';
+        require ROOT.'/views/backend/articleModal.php';
     }
 
     public function logout()

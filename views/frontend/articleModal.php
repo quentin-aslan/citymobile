@@ -24,10 +24,6 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                    <a href="index.php?p=admin_update_article&token=<?= $article->getId(); ?>"
-                       class="btn btn-warning">Modifier</a></p>
-                    <a href="index.php?p=admin_delete_article&token=<?= $article->getId(); ?>" class="btn btn-danger text-white"
-                       onclick="return confirm('Voulez-vous vraiment supprimer l\'article : <?= $article->getName(); ?>');">Supprimer</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>

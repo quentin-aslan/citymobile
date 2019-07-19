@@ -24,8 +24,8 @@
         /** @var ArrayObject $articles */
         $i = 0;
         foreach ($articles as $article) {
-            $i++;
-            /** @var \citymobile\Article $article */
+        $i++;
+        /** @var \citymobile\Article $article */
         if($i==4){?>
 
         <div class="card col-lg-3 col-md-12 mb-3 shadow-sm">
@@ -54,11 +54,9 @@
                     <button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="modal" data-target="#article_<?= $article->getId(); ?>"> Voir plus</button>
                 </div>
             </div>
-
         <?php }
-        $this->viewArticle($article->getId());
+        $this->viewModalArticle($article);
         } ?>
-
     </div>
     <?= $paginationView; ?>
 </div>
